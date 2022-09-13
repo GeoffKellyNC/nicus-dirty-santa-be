@@ -1,0 +1,31 @@
+{
+  "name": "nicus-dirty-santa-be",
+  "version": "1.0.0",
+  "description": "Dirty Santa Game. Nicus Backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GeoffKellyNC/nicus-dirty-santa-be.git"
+  },
+  "author": "Geoff Kelly",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GeoffKellyNC/nicus-dirty-santa-be/issues"
+  },
+  "homepage": "https://github.com/GeoffKellyNC/nicus-dirty-santa-be#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.3.3",
+    "uuidv4": "^6.2.13"
+  }
+}

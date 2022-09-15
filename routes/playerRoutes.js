@@ -3,7 +3,7 @@ const playerControllers = require('../controllers/playerControllers')
 
 
 
-const router = express.router()
+const router = express.Router()
 
 router
     .route("/setPlayer")
@@ -12,3 +12,6 @@ router
 router
     .route("/getPlayers")
     .get(playerControllers.getPlayers)
+
+
+module.exports = router

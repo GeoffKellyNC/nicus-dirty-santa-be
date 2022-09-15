@@ -3,13 +3,14 @@ const Player = require('../models/Player')
 
 exports.setPlayer = async (req, res) => {
     try {
-        const { playerName } = req.body.data
+        const { playerName, pin } = req.body.data
 
-        const newPlayer = new Player(playerName)
-        const setPlayer = await newPlayer.setPlayer()
-        console.log('Player Controller setPlayerRes: ', setPlayer)
+        const newPlayer = new Player(playerName, pin)
+        const newPlayerId = await newPlayer.setPlayer()
 
-        res.status(200).json({ message: 'PlayerSet'})
+        const playerDataRes = await Player.getPlayer(newPlayerId)
+
+        res.status(200).json({ message: playerDataRes[0][0] })
     } catch (error) {
         console.log('Player Controller setPlayer Error: ', error)
     }
@@ -18,10 +19,8 @@ exports.setPlayer = async (req, res) => {
 
 exports.getPlayers = async (req, res) => {
     try {
-        const sql = `SELECT * FROM player_data`
-        const getPlayerRes = await db.execute(sql)
-        const players = getPlayerRes.data
-        console.log('Player Controller Players: ', players) //!REMOVE
+        const players = await Player.getAllPlayers()
+        res.status(200).json({ message: players})
     } catch (error) {
         console.log('Player Controller getPlayers error: ', error)
     }

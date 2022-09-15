@@ -9,12 +9,13 @@ class Prize {
         this.prizeId = uuid();
         this.prizeName = data.prizeName;
         this.prizeImg = data.prizeImg;
+        this.prizeValue = data.prizeValue
     }
 
 
     async setPrize (){
         try {
-            const sql = `INSERT INTO prize_data (prize_id, prize_name, prize_image) VALUE ('${this.prizeId}', '${this.prizeName}', '${this.prizeImg}') `
+            const sql = `INSERT INTO prize_data (prize_id, prize_name, prize_image, prize_value) VALUE ('${this.prizeId}', '${this.prizeName}', '${this.prizeImg}', '${this.prizeValue}') `
             return db.execute(sql)
         } catch (error) {
             console.log('Prize.Model setPrize Error: ', error)

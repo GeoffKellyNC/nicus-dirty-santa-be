@@ -19,9 +19,9 @@ app.use((err, req, res, next) => {
     })
 })
 
-app.use("/auth", require("./routes/authRoutes"))
+// app.use("/auth", require("./routes/authRoutes"))
 app.use("/player", require("./routes/playerRoutes"))
-app.use("prize", require("./routes/prizeRoutes"))
+app.use("/prize", require("./routes/prizeRoutes"))
 
 
 const PORT = process.env.PORT || 3001;

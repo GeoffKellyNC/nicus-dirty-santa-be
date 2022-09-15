@@ -6,8 +6,8 @@ const Prize = require('../models/Prize')
 
 exports.setPrize = async (req, res) => {
     try {
-        const { prizeId, prizeName, prizeImg } = req.body.data
-        const newPrize = new Prize({ prizeId, prizeName, prizeImg })
+        const { prizeName, prizeImg, prizeValue } = req.body.data
+        const newPrize = new Prize({ prizeName, prizeImg, prizeValue })
         await newPrize.setPrize()
 
         res.status(200).json({ message: 'Prize Set'})

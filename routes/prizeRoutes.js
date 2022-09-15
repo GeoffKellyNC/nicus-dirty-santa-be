@@ -8,3 +8,5 @@ const router = express.Router()
 router
     .route("/setPrize")
     .post(prizeControllers.setPrize)
+
+module.exports = router

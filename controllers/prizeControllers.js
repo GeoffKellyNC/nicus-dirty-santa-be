@@ -16,3 +16,25 @@ exports.setPrize = async (req, res) => {
         console.log('prize.controller setPrize Error: ', error)
     }
 }
+
+exports.getAllPrizes = async (req, res) => {
+    try {
+        const prizeData = await Prize.getAllPrizes()
+        res.status(200).json({ message: prizeData})
+    } catch (error) {
+        console.log('prize.controller getAllPrizes Error: ', error)
+        res.status(500).json({ message: error})
+    }
+}
+
+exports.setPlayerPrize = async (req, res) => {
+    try {
+        const { prizeId, playerId } = req.body.data
+        const setPrize = await Prize.setPlayerPrize(prizeId, playerId)
+        return setPrize ? res.status(200).json({ message: 'Successful'}) : res.status(420).json({message: 'Error'})
+        
+    } catch (error) {
+        console.log('prizeControllers setPlayer Prize Error: ', error)
+        res.status(500).json({ message: error})
+    }
+}

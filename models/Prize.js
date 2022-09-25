@@ -26,12 +26,24 @@ class Prize {
         try {
             const sql = `SELECT * FROM prize_data`
             const prizeDataRes = await db.execute(sql)
-            const allPrizeData = prizeDataRes.data
-            console.log('All Prize Data: ', allPrizeData) //! REMOVE
+            return prizeDataRes[0]
             
         } catch (error) {
             console.log('Prize.Model getAllPrizes Error: ', error)
         }
+    }
+
+    static async setPlayerPrize (prizeId, playerId) {
+        try {
+            const playerSql = `UPDATE player_data SET player_current_prize = '${prizeId}' WHERE player_id = '${playerId}'`
+            const prizeSql = `UPDATE prize_data SET prize_current_owner = '${playerId}' WHERE prize_id = '${prizeId}'`
+            await db.execute(playerSql)
+            await db.execute(prizeSql)
+            return true
+        } catch (error) {
+            console.log('Prize.Model setPlayerPrize Error: ', error)
+        }
+
     }
 }
 

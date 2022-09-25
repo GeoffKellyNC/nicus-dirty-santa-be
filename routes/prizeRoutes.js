@@ -9,4 +9,12 @@ router
     .route("/setPrize")
     .post(prizeControllers.setPrize)
 
+router
+    .route("/getAllPrizes")
+    .get(prizeControllers.getAllPrizes)
+
+router
+    .route("/setPlayerPrize")
+    .post(prizeControllers.setPlayerPrize)
+
 module.exports = router

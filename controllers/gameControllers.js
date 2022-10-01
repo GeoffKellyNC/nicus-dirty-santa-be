@@ -1,7 +1,6 @@
 const Game = require('../models/Game')
 
 
-
 exports.startGame = async (req, res) => {
     try {
         const { message } = req.body.data
@@ -19,7 +18,6 @@ exports.startGame = async (req, res) => {
     
 }
 
-
 exports.setPlayerTurn = async (req, res) => {
     try {
         const { playerId, gameId } = req.body.data
@@ -30,7 +28,6 @@ exports.setPlayerTurn = async (req, res) => {
         res.status(500).json({ message: error })
     }
 }
-
 
 exports.rejoinGame = async (req, res) => {
     try {

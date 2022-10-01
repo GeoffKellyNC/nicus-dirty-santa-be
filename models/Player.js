@@ -28,7 +28,9 @@ class Player {
     static async getPlayer (id){
         const sql = `SELECT * FROM player_data WHERE player_id = '${id}'`
         const playerData = await db.execute(sql)
-        return playerData
+        console.log('ID: ,', id)
+        console.log(playerData[0])
+        return playerData[0][0]
     }
 }
 

@@ -5,13 +5,29 @@ const playerControllers = require('../controllers/playerControllers')
 
 const router = express.Router()
 
+
+// GET ROUTES ----------
+router
+    .route("/getPlayers")
+    .get(playerControllers.getPlayers)
+
+
+
+    
+
+// POST ROUTES ----------
+
+
 router
     .route("/setPlayer")
     .post(playerControllers.setPlayer)
 
 router
-    .route("/getPlayers")
-    .get(playerControllers.getPlayers)
+    .route("/getSinglePlayer")
+    .post(playerControllers.getSinglePlayer)
+
+
+
 
 
 module.exports = router

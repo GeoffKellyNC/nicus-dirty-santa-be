@@ -5,6 +5,10 @@ const gameControllers = require('../controllers/gameControllers')
 const router = express.Router();
 
 
+
+
+// POST ROUTES ----------
+
 router
     .route("/startGame")
     .post(gameControllers.startGame)

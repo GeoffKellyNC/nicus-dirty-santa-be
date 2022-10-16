@@ -1,13 +1,13 @@
 const Game = require('../models/Game')
 
-
 exports.startGame = async (req, res) => {
     try {
-        const { message } = req.body.data
-        if (message = 'start'){
+        let { message } = req.body.data
+        if (message = 'startGame'){
             const newGame = new Game()
             const gameId = await newGame.startGame()
-            res.status(200).json({ message: gameId})
+            const gameData = await Game.getGameData(gameId)
+            res.status(200).json({ message: gameData })
         }else{
             res.status(501).json({ message: 'Something Went Wrong'})
         }
@@ -41,6 +41,18 @@ exports.rejoinGame = async (req, res) => {
         res.status(200).json({ message: playerData })
     } catch (error) {
         console.log('gameController rejoinGame Error: ', error)
+        res.status(500).json({ message: error })
+    }
+}
+
+exports.getGameData = async (req, res) => {
+    try {
+        const { gameId } = req.body.data
+        const gameData = await Game.getGameData(gameId)
+        console.log('gameData: ', gameData) //!REMOVE
+        res.status(200).json({ message: gameData })
+    } catch (error) {
+        console.log('gameController getGameData Error: ', error)
         res.status(500).json({ message: error })
     }
 }

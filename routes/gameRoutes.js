@@ -21,6 +21,10 @@ router
     .route("/rejoinGame")
     .post(gameControllers.rejoinGame)
 
+router
+    .route("/getGameData")
+    .post(gameControllers.getGameData)
+
 
 
 module.exports = router

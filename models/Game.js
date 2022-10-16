@@ -1,5 +1,6 @@
 const db = require('../db/db.config')
 const { v4: uuid } = require('uuid')
+const ioSocket  = require('../util/returnSocket').ioSocket
 
 
 
@@ -44,6 +45,31 @@ class Game {
         } catch (error) {
             console.log('GameModel rejoinGame Error: ', error)
         }
+    }
+
+    static async getGameData (gameId){
+        try {
+            const sql = `SELECT * FROM game_data WHERE game_id = '${gameId}'`
+            const gameData = await db.execute(sql)
+            return gameData[0][0]
+        } catch (error) {
+            console.log('GameModel getGameData Error: ', error)
+        }
+    }
+
+    static async handleSocket(type){
+        try {
+            switch (type) {
+                case 'start':
+                    console.log('Socket Check', ioSocket)
+                    break;
+                default:
+                    break;
+            }
+        } catch(error){
+            console.log(error)
+        }
+
     }
 }
 

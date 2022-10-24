@@ -1,5 +1,6 @@
 const db = require('../db/db.config')
 const { v4: uuid } = require('uuid')
+const ioSocket  = require('../util/returnSocket').ioSocket
 
 
 
@@ -45,6 +46,45 @@ class Game {
             console.log('GameModel rejoinGame Error: ', error)
         }
     }
+
+    static async getGameData (gameId){
+        try {
+            const sql = `SELECT * FROM game_data WHERE game_id = '${gameId}'`
+            const gameData = await db.execute(sql)
+            return gameData[0][0]
+        } catch (error) {
+            console.log('GameModel getGameData Error: ', error)
+        }
+    }
+
+    static async handleSocket(type){
+        try {
+            switch (type) {
+                case 'start':
+                    console.log('Socket Check', ioSocket)
+                    break;
+                default:
+                    break;
+            }
+        } catch(error){
+            console.log(error)
+        }
+
+    }
+
+    static async setPlayerOrder(playerArray, gameId) {
+        try {
+            const playerJson = JSON.stringify(playerArray)
+            const sql = `UPDATE game_data SET game_order = '${playerJson}' WHERE game_id = '${gameId}'`
+            const getPlayerOrderSQL = `SELECT game_order FROM game_data WHERE game_id = '${gameId}'`
+            const postRes =  await db.execute(sql)
+            const playerOrderRes = await db.execute(getPlayerOrderSQL)
+            const playerOrder = playerOrderRes[0][0]
+        } catch (error) {
+            console.log('Game setPlayerOrder Error: ', error)
+        }
+    }
+
 }
 
 

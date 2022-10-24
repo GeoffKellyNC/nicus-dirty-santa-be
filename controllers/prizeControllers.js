@@ -42,13 +42,8 @@ exports.setPlayerPrize = async (req, res) => {
 
 exports.stealPrize = async (req, res) => {
     try {
-        console.log('stealPrize req.body.data: ', req.body.data)
         const { prizeId, oldPlayer, newPlayer, currentGift } = req.body.data
-        console.log('prize Controllers req data: ', req.body.data) //!remove
-        console.log('New Prize Id controller: ', prizeId) //!remove
-        console.log('OldPlayerId controller: ', oldPlayer) //!remove
-        console.log('New Player Id controller: ', newPlayer)
-        console.log('Old Gift Id controller: ', currentGift)
+
 
         const handleSteal = await Prize.stealPrize(prizeId, oldPlayer, newPlayer, currentGift)
 

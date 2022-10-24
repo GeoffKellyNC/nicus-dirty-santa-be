@@ -37,19 +37,29 @@ app.use("/game", require("./routes/gameRoutes"))
 io.on('connection', (socket) => {
     console.log('New client connected')
     socket.on('startGame' , (data) => {
-        const { gameId } = data
-        io.local.emit('startGame', { gameId })
+        const { gameId, gameData } = data
+        io.local.emit('startGame', { gameId, gameData })
     })
     socket.on('sendGiftChosen', (data) => {
-        console.log('Gift Chosen', data) //!REMOVE
+        console.log('Gift Chosen', data) 
         const { playerName, giftName } = data
         io.local.emit('giftChosen', { playerName, giftName })
         io.local.emit('moveMade', { playerName })
     })
     socket.on('disconnect', () => {
         console.log('user disconnected');
-    }
-    );
+    });
+    socket.on('shuffled', (data) => {
+        io.local.emit('shuffled', { shuffledPlayers: data.shuffledNames })
+    })
+    socket.on('nextPlayer', (data) => {
+        const { playerId } = data
+        io.local.emit('sendNextPlayer', { playerId })
+    })
+    socket.on('updatePlayerOrder', (data) => {
+        const { playerList } = data
+        io.local.emit('sendPlayerOrder', { playerList })
+    })
   });
 
 

@@ -25,6 +25,10 @@ router
     .route("/getGameData")
     .post(gameControllers.getGameData)
 
+router
+    .route("/setPlayerOrder")
+    .post(gameControllers.setPlayerOrder)
+
 
 
 module.exports = router

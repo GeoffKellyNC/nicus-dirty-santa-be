@@ -49,10 +49,18 @@ exports.getGameData = async (req, res) => {
     try {
         const { gameId } = req.body.data
         const gameData = await Game.getGameData(gameId)
-        console.log('gameData: ', gameData) //!REMOVE
         res.status(200).json({ message: gameData })
     } catch (error) {
         console.log('gameController getGameData Error: ', error)
         res.status(500).json({ message: error })
+    }
+}
+
+exports.setPlayerOrder = async (req, res) => {
+    try {
+        const { playerArray, gameId } = req.body.data
+        const playerOrder = await Game.setPlayerOrder(playerArray, gameId)
+    } catch (error) {
+        console.group('gameController setPlayerOrder Error: ', error)
     }
 }

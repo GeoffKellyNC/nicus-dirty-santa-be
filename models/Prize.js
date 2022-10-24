@@ -48,17 +48,16 @@ class Prize {
     }
 
     static async stealPrize (prizeId, oldPlayer, newPlayer, currentGift) {
-            console.log('New Prize Id model: ', prizeId) //!remove
-            console.log('OldPlayerId Model: ', oldPlayer) //!remove
-            console.log('New Player Id model : ', newPlayer)
-            console.log('Old Gift Id Model: ', currentGift)
+
         try {
             const removeOldSQL = `UPDATE player_data SET player_current_prize = NULL WHERE player_id = '${oldPlayer}'`
             const setNewSQL = `UPDATE player_data SET player_current_prize = '${prizeId}' WHERE player_id = '${newPlayer}'`
             const updateGiftSQL = `UPDATE prize_data SET prize_current_owner = '${newPlayer}' WHERE prize_id = '${prizeId}'`
+            const updateGiftPreviousSQL = `UPDATE prize_data SET prize_previous_owner = '${oldPlayer}' WHERE prize_id = '${prizeId}'`
             await db.execute(removeOldSQL)
             await db.execute(setNewSQL)
             await db.execute(updateGiftSQL)
+            await db.execute(updateGiftPreviousSQL)
             if (currentGift){
                 const updateGiftSQL = `UPDATE prize_data SET prize_current_owner = NULL WHERE prize_id = '${currentGift}'`
                 await db.execute(updateGiftSQL)

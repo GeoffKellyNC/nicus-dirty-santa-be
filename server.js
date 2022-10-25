@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 app.use("/player", require("./routes/playerRoutes"))
 app.use("/prize", require("./routes/prizeRoutes"))
 app.use("/game", require("./routes/gameRoutes"))
-
+ 
 
 
 

@@ -22,7 +22,7 @@ const io = socketIo(server, {
 app.set('io', io)
 
 app.get('/', (req, res) => {
-    res.send('<h1>Server is running</h1>')
+    res.send('<h1>Server is running</h1>') 
 })
 
 

@@ -5,7 +5,6 @@ const http = require('http')
 const { Server } = require('socket.io')
 
 
-const socketIo = require("socket.io");
 
 const LOCAL = true
 
@@ -17,7 +16,7 @@ app.use(cors())
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: '*',
+        origin: LOCAL ? 'http://localhost:3000' : 'https://nicus-dirty-christmas.herokuapp.com/://myapp.com',
         methods: ['GET', 'POST']
     }
 });

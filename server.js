@@ -2,10 +2,12 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const http = require('http')
-const returnSocket = require('./util/returnSocket').returnSocket
+const { Server } = require('socket.io')
 
 
 const socketIo = require("socket.io");
+
+const LOCAL = true
 
 
 const app = express()
@@ -13,16 +15,15 @@ app.use(express.json())
 app.use(cors())
 
 const server = http.createServer(app);
-const io = socketIo(server, {
+const io = new Server(server, {
     cors: {
-        origin: "https://nicus-dirty-santa.netlify.app/",
-        methods: ["GET", "POST"]
+        origin: '*',
+        methods: ['GET', 'POST']
     }
 });
-app.set('io', io)
 
 app.get('/', (req, res) => {
-    res.send('<h1>Server is running</h1>') 
+    res.send('<h1>Server is running</h1>')
 })
 
 
@@ -30,7 +31,7 @@ app.get('/', (req, res) => {
 app.use("/player", require("./routes/playerRoutes"))
 app.use("/prize", require("./routes/prizeRoutes"))
 app.use("/game", require("./routes/gameRoutes"))
- 
+
 
 
 
@@ -65,7 +66,8 @@ io.on('connection', (socket) => {
 
 
 const PORT = process.env.PORT || 9001;
-server.listen(PORT, '0.0.0.0', () => {
+
+server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}...`)
 })
 

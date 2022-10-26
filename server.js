@@ -16,7 +16,7 @@ app.use(cors())
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: LOCAL ? 'http://localhost:3000' : 'https://nicus-dirty-santa.netlify.app/',
+        origin: LOCAL ? 'http://localhost:3000' : '*',
         methods: ['GET', 'POST']
     }
 });

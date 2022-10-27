@@ -60,6 +60,11 @@ io.on('connection', (socket) => {
         const { playerList } = data
         io.local.emit('sendPlayerOrder', { playerList })
     })
+    socket.on('player-joined', (data) => {
+        console.log('Player Joined', data) //!REMOVE
+        const { playerName } = data
+        io.local.emit('player-joined-update', { playerName })
+    })
   });
 
 

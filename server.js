@@ -64,7 +64,7 @@ io.on('connection', (socket) => {
         console.log('Player Joined', data) //!REMOVE
         const { playerName } = data
         io.local.emit('player-joined-update', { playerName })
-    })
+    }) 
   });
 
 

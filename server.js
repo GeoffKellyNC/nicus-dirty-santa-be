@@ -6,7 +6,7 @@ const { Server } = require('socket.io')
 
 
 
-const LOCAL = false
+const LOCAL = true
 
 
 const app = express()
@@ -40,12 +40,32 @@ io.on('connection', (socket) => {
         const { gameId, gameData } = data
         io.local.emit('startGame', { gameId, gameData })
     })
-    socket.on('sendGiftChosen', (data) => {
+
+    socket.on('moveMadeServer', (data => {
+        const { type, playerName, giftName, oldPlayerName} = data
         console.log('Gift Chosen', data) 
-        const { playerName, giftName } = data
-        io.local.emit('giftChosen', { playerName, giftName })
-        io.local.emit('moveMade', { playerName })
-    })
+
+        switch(type){
+            case 'choose':
+                console.log('Gift Chosen') //!REMOVE
+                io.local.emit('giftChosen', { playerName, giftName })
+                io.local.emit('moveMade', { playerName })
+                return
+            case 'steal':
+                io.local.emit('giftStolen', {playerName, oldPlayerName, giftName})
+                io.local.emit('moveMade', { playerName })
+                return
+            default:
+                return
+        }
+    }))
+
+    // socket.on('sendGiftChosen', (data) => {
+    //     console.log('Gift Chosen', data) 
+    //     const { playerName, giftName } = data
+    //     io.local.emit('giftChosen', { playerName, giftName })
+    //     io.local.emit('moveMade', { playerName })
+    // })
     socket.on('disconnect', () => {
         console.log('user disconnected');
     });

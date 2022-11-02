@@ -72,13 +72,14 @@ io.on('connection', (socket) => {
     socket.on('shuffled', (data) => {
         io.local.emit('shuffled', { shuffledPlayers: data.shuffledNames })
     })
-    socket.on('nextPlayer', (data) => {
-        const { playerId } = data
-        io.local.emit('sendNextPlayer', { playerId })
-    })
+    // socket.on('nextPlayer', (data) => {
+    //     const { playerId } = data
+    //     // io.local.emit('sendNextPlayer', { playerId })
+    // })
     socket.on('updatePlayerOrder', (data) => {
-        const { playerList } = data
+        const { playerList, playerId } = data
         io.local.emit('sendPlayerOrder', { playerList })
+        io.local.emit('sendNextPlayer', { playerId })
     })
     socket.on('player-joined', (data) => {
         console.log('Player Joined', data) //!REMOVE

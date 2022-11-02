@@ -59,23 +59,14 @@ io.on('connection', (socket) => {
                 return
         }
     }))
-
-    // socket.on('sendGiftChosen', (data) => {
-    //     console.log('Gift Chosen', data) 
-    //     const { playerName, giftName } = data
-    //     io.local.emit('giftChosen', { playerName, giftName })
-    //     io.local.emit('moveMade', { playerName })
-    // })
+    
     socket.on('disconnect', () => {
         console.log('user disconnected');
     });
     socket.on('shuffled', (data) => {
         io.local.emit('shuffled', { shuffledPlayers: data.shuffledNames })
     })
-    // socket.on('nextPlayer', (data) => {
-    //     const { playerId } = data
-    //     // io.local.emit('sendNextPlayer', { playerId })
-    // })
+
     socket.on('updatePlayerOrder', (data) => {
         const { playerList, playerId } = data
         io.local.emit('sendPlayerOrder', { playerList })

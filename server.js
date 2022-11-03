@@ -6,7 +6,7 @@ const { Server } = require('socket.io')
 
 
 
-const LOCAL = false
+const LOCAL = true
 
 
 const app = express()
@@ -40,25 +40,37 @@ io.on('connection', (socket) => {
         const { gameId, gameData } = data
         io.local.emit('startGame', { gameId, gameData })
     })
-    socket.on('sendGiftChosen', (data) => {
+
+    socket.on('moveMadeServer', (data => {
+        const { type, playerName, giftName, oldPlayerName} = data
         console.log('Gift Chosen', data) 
-        const { playerName, giftName } = data
-        io.local.emit('giftChosen', { playerName, giftName })
-        io.local.emit('moveMade', { playerName })
-    })
+
+        switch(type){
+            case 'choose':
+                console.log('Gift Chosen') //!REMOVE
+                io.local.emit('giftChosen', { playerName, giftName })
+                io.local.emit('moveMade', { playerName })
+                return
+            case 'steal':
+                io.local.emit('giftStolen', {playerName, oldPlayerName, giftName})
+                io.local.emit('moveMade', { playerName })
+                return
+            default:
+                return
+        }
+    }))
+
     socket.on('disconnect', () => {
-        console.log('user disconnected');
+        console.log('us disconnected');
     });
     socket.on('shuffled', (data) => {
         io.local.emit('shuffled', { shuffledPlayers: data.shuffledNames })
     })
-    socket.on('nextPlayer', (data) => {
-        const { playerId } = data
-        io.local.emit('sendNextPlayer', { playerId })
-    })
+
     socket.on('updatePlayerOrder', (data) => {
-        const { playerList } = data
+        const { playerList, playerId } = data 
         io.local.emit('sendPlayerOrder', { playerList })
+        io.local.emit('sendNextPlayer', { playerId })
     })
     socket.on('player-joined', (data) => {
         console.log('Player Joined', data) //!REMOVE

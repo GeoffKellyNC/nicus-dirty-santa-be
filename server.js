@@ -59,16 +59,16 @@ io.on('connection', (socket) => {
                 return
         }
     }))
-    
+
     socket.on('disconnect', () => {
-        console.log('user disconnected');
+        console.log('us disconnected');
     });
     socket.on('shuffled', (data) => {
         io.local.emit('shuffled', { shuffledPlayers: data.shuffledNames })
     })
 
     socket.on('updatePlayerOrder', (data) => {
-        const { playerList, playerId } = data
+        const { playerList, playerId } = data 
         io.local.emit('sendPlayerOrder', { playerList })
         io.local.emit('sendNextPlayer', { playerId })
     })

@@ -85,6 +85,35 @@ class Game {
         }
     }
 
+    static async getPlayerOrder(){
+        try {
+            const getGameIdSQL = `SELECT game_id FROM game_data WHERE game_status = 'active'`
+            const gameIdRes = await db.execute(getGameIdSQL)
+            const gameId = gameIdRes[0][0].game_id
+            const getPlayerOrderSQL = `SELECT game_order FROM game_data WHERE game_id = '${gameId}'`
+            const playerOrderRes = await db.execute(getPlayerOrderSQL)
+            const playerOrder = playerOrderRes[0][0]
+            console.log('playerOrder: ', playerOrder) //!REMOVE
+            return playerOrder
+        } catch (error) {
+            console.log('Game getPlayerOrder Error: ', error)
+        }
+    }
+
+    static async getGameDataNoID(){
+        try {
+            const getGameIdSQL = `SELECT game_id FROM game_data WHERE game_status = 'active'`
+            const gameIdRes = await db.execute(getGameIdSQL)
+            const gameId = gameIdRes[0][0].game_id
+            const sql = `SELECT * FROM game_data WHERE game_id = '${gameId}'`
+            const gameData = await db.execute(sql)
+            console.log('gameData: ', gameData) //!REMOVE
+            return gameData[0][0]
+        } catch (error) {
+            console.log('GameModel getGameData Error: ', error)
+        }
+    }
+
 }
 
 

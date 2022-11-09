@@ -31,14 +31,17 @@ exports.setPlayerTurn = async (req, res) => {
 
 exports.rejoinGame = async (req, res) => {
     try {
+        console.log('REJOINING GAME...........') //! REMOVE
         const { userName, pin } = req.body.data
         const playerData = await Game.rejoinGame(userName, pin)
+        const playerOrder = await Game.getPlayerOrder()
+        const gameData = await Game.getGameDataNoID()
 
         if(!playerData){
             res.status(200).json({message: 401})
             return
         }
-        res.status(200).json({ message: playerData })
+        res.status(200).json({ message: { playerData, playerOrder, gameData}})
     } catch (error) {
         console.log('gameController rejoinGame Error: ', error)
         res.status(500).json({ message: error })

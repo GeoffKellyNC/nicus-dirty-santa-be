@@ -6,7 +6,7 @@ const { Server } = require('socket.io')
 
 
 
-const LOCAL = false
+const LOCAL = true
 
 
 const app = express()

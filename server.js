@@ -6,7 +6,7 @@ const { Server } = require('socket.io')
 
 
 
-const LOCAL = false
+const LOCAL = true
 
 
 const app = express()
@@ -52,6 +52,8 @@ io.on('connection', (socket) => {
                 io.local.emit('moveMade', { playerName })
                 return
             case 'steal':
+                console.log('Gift Stolen') //!REMOVE
+                console.log(`${playerName} stole ${giftName} from ${oldPlayerName}!`) //!REMOVE
                 io.local.emit('giftStolen', {playerName, oldPlayerName, giftName})
                 io.local.emit('moveMade', { playerName })
                 return

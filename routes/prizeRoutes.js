@@ -29,6 +29,10 @@ router
     .route("/stealPrize")
     .post(prizeControllers.stealPrize)
 
+router
+    .route("/test/:id")
+    .get(prizeControllers.test)
+
 
 
 module.exports = router

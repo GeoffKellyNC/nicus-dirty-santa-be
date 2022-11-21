@@ -6,8 +6,8 @@ const Prize = require('../models/Prize')
 
 exports.setPrize = async (req, res) => {
     try {
-        const { prizeName, prizeImg, prizeValue } = req.body.data
-        const newPrize = new Prize({ prizeName, prizeImg, prizeValue })
+        const { prizeName, prizeImg, prizeValue, prizeDescription } = req.body.data
+        const newPrize = new Prize({ prizeName, prizeImg, prizeValue, prizeDescription })
         await newPrize.setPrize()
 
         res.status(200).json({ message: 'Prize Set'})
@@ -55,4 +55,12 @@ exports.stealPrize = async (req, res) => {
         console.log('prizeControllers stealPrize Error: ', error)
         res.status(500).json({ message: error})
     }
+}
+
+exports.test = async (req, res) => {
+
+    const { id } = req.params
+    const response = await Prize.test(id)
+
+    res.status(200).json(response[0][0].prize_num_steals)
 }
